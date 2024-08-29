@@ -51,14 +51,14 @@ Make sure you have the following installed:
 1. **Clone or Download the Script**: First, get the script onto your local machine.
 
 2. **Make the Script Executable**: 
-   \`\`\`bash
+   ```
    chmod +x create_electron_project.sh
-   \`\`\`
+   ```
 
 3. **Run the Script**:
-   \`\`\`bash
+   ```
    ./create_electron_project.sh
-   \`\`\`
+   ```
 
 4. **Follow the Prompts**: The script will guide you through the following:
 
@@ -73,14 +73,14 @@ Make sure you have the following installed:
 Once the script has completed, you can run your Electron project easily:
 
 1. **Navigate to Your Project Directory**:
-   \`\`\`bash
+   ```
    cd /path/to/your/project
-   \`\`\`
+   ```
 
 2. **Run the Project**:
-   \`\`\`bash
+   ```
    npm start
-   \`\`\`
+   ```
 
 This will start your Electron application!
 
@@ -90,9 +90,9 @@ Here's a step-by-step example to illustrate how it works:
 
 1. **Run the Script**:
 
-   \`\`\`bash
+   ```
    ./create_electron_project.sh
-   \`\`\`
+   ```
 
 2. **Enter the Project Name**:
    ```
