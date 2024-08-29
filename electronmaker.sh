@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# 20240829_1924_est_EJR
 
 # Function to show a zenity error message and log it
 function show_error() {
@@ -73,15 +74,6 @@ app.on('activate', () => {
 EOL
 }
 
-# Function to create run script
-function create_run_script() {
-  cat > run << EOL
-#!/bin/bash
-npm start
-EOL
-  chmod +x run
-}
-
 # Function to update package.json safely
 function update_package_json() {
   if command -v jq > /dev/null; then
@@ -130,9 +122,6 @@ install_electron
 
 # Create main.js file
 create_main_js
-
-# Create a run script to easily launch the Electron app
-create_run_script
 
 # Update package.json to include main and start scripts
 update_package_json
