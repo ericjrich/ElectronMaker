@@ -125,4 +125,4 @@ sudo dnf install jq       # For Fedora
 
 ## Author
 
-<p>Created by <strong>[EJR]</strong>.</p>
+<p>Created by <strong>EJR</strong>.</p>
