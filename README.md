@@ -1,136 +1,128 @@
+# Electron Project Setup Script
 
-# 📦 Electron Project Setup Script
+<p>This repository contains a Bash script to automate the setup of a basic Electron project. The script uses Zenity for graphical prompts and handles everything from project initialization to Electron installation and file creation.</p>
 
-Welcome to the **Electron Project Setup Script**! This bash script will help you quickly set up an Electron project with ease. Just follow the steps, and you'll have your project ready in no time!
+<hr>
 
-## 🎉 Features
+## Prerequisites
 
-- **Interactive GUI** using Zenity for seamless user input.
-- **Error Handling** with log files to trace back any issues.
-- **Modular Structure** with functions for better organization and readability.
-- **Customizable Setup**: Choose a directory or file for your project content.
-- **Automatic Project Initialization** with `npm` and Electron setup.
+<p>Before running the script, ensure that you have the following installed on your system:</p>
 
-## 🚀 How It Works
+<ul>
+    <li><strong>Node.js</strong> and <strong>npm</strong>: Required to initialize the project and install dependencies.</li>
+    <li><strong>Zenity</strong>: Used for graphical dialogs to interact with the user.</li>
+    <li><strong>jq</strong> (optional but recommended): Used to modify <code>package.json</code> more safely.</li>
+</ul>
 
-The script guides you through the creation of an Electron project by:
+<hr>
 
-1. **Asking for the Project Name**: 
-   - Provides a text input to enter the name of your new project.
+## How to Use the Script
 
-2. **Selecting the Project Directory**: 
-   - Lets you choose where you want to create the project directory.
+<ol>
+    <li>
+        <strong>Clone this repository</strong> to your local machine:
+        <pre><code>
+git clone &lt;repository-url&gt;
+cd &lt;repository-directory&gt;
+        </code></pre>
+    </li>
+    <li>
+        <strong>Make the script executable:</strong>
+        <pre><code>
+chmod +x electronmaker.sh
+        </code></pre>
+    </li>
+    <li>
+        <strong>Run the script:</strong>
+        <pre><code>
+./electronmaker.sh
+        </code></pre>
+        <ul>
+            <li>You will be prompted to enter the project name.</li>
+            <li>You will be prompted to select a directory where the project should be created.</li>
+            <li>You can optionally select a directory containing your <code>index.html</code> and other necessary files. If you skip this step, you will be asked to select a specific file to use as <code>index.html</code>.</li>
+        </ul>
+    </li>
+    <li>
+        <strong>The script will:</strong>
+        <ul>
+            <li>Create a new project directory.</li>
+            <li>Initialize a Node.js project with <code>npm init</code>.</li>
+            <li>Install Electron as a development dependency.</li>
+            <li>Create a basic <code>main.js</code> file.</li>
+            <li>Update <code>package.json</code> to include the main file and start script.</li>
+            <li>Create a <code>run.sh</code> file for launching the application.</li>
+        </ul>
+    </li>
+    <li>
+        <strong>Success:</strong> Once the script completes, you will receive a success message indicating that the Electron project has been created.
+    </li>
+</ol>
 
-3. **Choosing Content for the Project**:
-   - Offers an option to select a content directory (containing `index.html` and other files).
-   - If you don't select a directory, you can select a specific file, which will be copied and renamed as `index.html`.
+<hr>
 
-4. **Installing Electron**: 
-   - Initializes the project with `npm init`.
-   - Installs Electron as a development dependency.
+## Running Your Electron Project
 
-5. **Creating Necessary Files**:
-   - Generates a `main.js` file for Electron.
+<ol>
+    <li>
+        <strong>Navigate to your project directory:</strong>
+        <pre><code>
+cd /path/to/your/project
+        </code></pre>
+    </li>
+    <li>
+        <strong>Run the application:</strong>
+        <pre><code>
+./run.sh
+        </code></pre>
+        <p>This will start your Electron application using the configuration created by the script.</p>
+    </li>
+</ol>
 
-6. **Updating `package.json`**:
-   - Adds the main script and start script entries using `jq` or `sed`.
+<hr>
 
-7. **Displaying Success Message**: 
-   - Once everything is done, a success message is shown.
+## Troubleshooting
 
-## 📋 Prerequisites
+<ul>
+    <li>
+        <strong>Error Messages:</strong> Any errors encountered during the setup will be shown via Zenity and logged into <code>error.log</code> within the project directory.
+    </li>
+    <li>
+        <strong>Missing Zenity:</strong> If you do not have Zenity installed, you can install it using your package manager:
+        <pre><code>
+sudo apt-get install zenity   # For Debian/Ubuntu
+sudo dnf install zenity       # For Fedora
+        </code></pre>
+    </li>
+    <li>
+        <strong>jq Not Found:</strong> If <code>jq</code> is not installed, the script will use <code>sed</code> to update <code>package.json</code>. Install <code>jq</code> for more reliable JSON processing:
+        <pre><code>
+sudo apt-get install jq   # For Debian/Ubuntu
+sudo dnf install jq       # For Fedora
+        </code></pre>
+    </li>
+</ul>
 
-Make sure you have the following installed:
+<hr>
 
-- **Zenity**: For GUI dialogs.
-- **Node.js** and **npm**: Required for Electron setup.
-- **jq** (optional but recommended): For safe JSON editing.
+## Notes
 
-## 🛠 How to Use the Script
+<p>The script is designed for Unix-based systems (Linux/macOS). Windows users may need to adapt the script or run it in a compatible environment like WSL (Windows Subsystem for Linux).</p>
 
-1. **Clone or Download the Script**: First, get the script onto your local machine.
+<hr>
 
-2. **Make the Script Executable**: 
-   ```
-   chmod +x create_electron_project.sh
-   ```
+## License
 
-3. **Run the Script**:
-   ```
-   ./create_electron_project.sh
-   ```
+<p>This project is licensed under the MIT License. See the <a href="LICENSE">LICENSE</a> file for details.</p>
 
-4. **Follow the Prompts**: The script will guide you through the following:
+<hr>
 
-   - Entering the project name.
-   - Selecting a directory for the project.
-   - Choosing a content directory or a specific file to use as `index.html`.
+## Contributing
 
-5. **Check for Success**: After running the script, you will receive a success message. Your project is now set up and ready!
+<p>Feel free to submit issues or pull requests if you have suggestions for improvements or find any bugs!</p>
 
-## 🏃‍♂️ How to Run Your Electron Project
+<hr>
 
-Once the script has completed, you can run your Electron project easily:
+## Author
 
-1. **Navigate to Your Project Directory**:
-   ```
-   cd /path/to/your/project
-   ```
-
-2. **Run the Project**:
-   ```
-   npm start
-   ```
-
-This will start your Electron application!
-
-## 📦 Example Project Setup
-
-Here's a step-by-step example to illustrate how it works:
-
-1. **Run the Script**:
-
-   ```
-   ./create_electron_project.sh
-   ```
-
-2. **Enter the Project Name**:
-   ```
-   📛 Enter Project Name: MyCoolElectronApp
-   ```
-
-3. **Select the Project Directory**:
-   ```
-   📁 Select Project Directory: /home/user/projects/
-   ```
-
-4. **Select Content Directory or File**:
-   - If you choose a directory, it might look like this:
-     ```
-     📂 Select Content Directory: /home/user/content/
-     ```
-   - If you cancel directory selection, choose a file:
-     ```
-     📄 Select a File: /home/user/single_page.html
-     ```
-
-   (The file will be renamed to `index.html` and placed in the project directory.)
-
-5. **Check for Success**:
-   ```
-   ✅ Success: Electron project 'MyCoolElectronApp' created successfully in /home/user/projects/MyCoolElectronApp!
-   ```
-
-## 📝 Notes
-
-- If you encounter any errors during the installation or setup process, check the `error.log` file located in your project directory for more details.
-- The script automatically creates a `main.js` file to start your Electron application.
-- Ensure you have the necessary permissions to create directories and run scripts in your chosen project directory.
-
-## 📚 More Info
-
-Electron is a framework that allows you to build cross-platform desktop applications using web technologies. For more details on Electron, visit the official [Electron website](https://www.electronjs.org/).
-
----
-
-🌟 Happy coding with Electron! 🌟
+<p>Created by <strong>[Your Name]</strong>.</p>

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 20240829_1924_est_EJR
+# 20240829_2006_est_EJR
 
 # Function to show a zenity error message and log it
 function show_error() {
@@ -74,6 +74,15 @@ app.on('activate', () => {
 EOL
 }
 
+create_run_file() {
+  cat > run.sh << 'EOL'
+export NVM_DIR="$HOME/.nvm"; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+cd $(dirname "$0")
+npm start >>/dev/null 2>&1 & disown
+EOL
+  chmod +x run.sh
+}
+
 # Function to update package.json safely
 function update_package_json() {
   if command -v jq > /dev/null; then
@@ -125,6 +134,9 @@ create_main_js
 
 # Update package.json to include main and start scripts
 update_package_json
+
+# create the run file (launcher)
+create_run_file
 
 # Notify user of successful creation
 show_success "Electron project '$project_name' created successfully in $full_path!"
