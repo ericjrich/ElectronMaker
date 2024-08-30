@@ -111,17 +111,6 @@ sudo dnf install jq       # For Fedora
 
 <hr>
 
-## License
-
-<p>This project is licensed under the MIT License. See the <a href="LICENSE">LICENSE</a> file for details.</p>
-
-<hr>
-
-## Contributing
-
-<p>Feel free to submit issues or pull requests if you have suggestions for improvements or find any bugs!</p>
-
-<hr>
 
 ## Author
 
