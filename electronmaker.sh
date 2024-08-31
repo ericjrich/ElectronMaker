@@ -74,7 +74,8 @@ app.on('activate', () => {
 EOL
 }
 
-create_run_file() {
+# Function to create a run file
+function create_run_file() {
   cat > run.sh << 'EOL'
 export NVM_DIR="$HOME/.nvm"; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 cd $(dirname "$0")
@@ -102,9 +103,6 @@ project_name=$(zenity --entry --title="📛 Enter Project Name" --text="Enter th
 project_dir=$(zenity --file-selection --directory --title="📁 Select Project Directory" --width=300)
 [ -z "$project_dir" ] && show_error "No directory selected!" && exit 1
 
-# Ask for the directory containing files and directories to include
-content_dir=$(zenity --file-selection --directory --title="📂 Select Content Directory" --text="Select the directory containing your index.html and other files:" --width=300)
-
 # Set log file path
 log_file="$project_dir/$project_name/error.log"
 
@@ -112,19 +110,44 @@ log_file="$project_dir/$project_name/error.log"
 full_path="$project_dir/$project_name"
 initialize_project
 
-# If content directory is not selected, ask for a specific file
-if [ -z "$content_dir" ]; then
-  content_file=$(zenity --file-selection --title="📄 Select a File" --text="No content directory selected. Please select a file to use as index.html:" --width=300)
-  if [ -z "$content_file" ]; then
-    show_error "No content file selected!"
+# Ask the user to choose how to add content
+content_choice=$(zenity --list --title="Select Content Option" --text="Choose how to add content to your project:" --radiolist --column "Select" --column "Option" TRUE "Directory" FALSE "File" FALSE "URL" FALSE "Abort" --width=300 --height=250)
+
+# Handle user choice
+case $content_choice in
+  "Directory")
+    content_dir=$(zenity --file-selection --directory --title="📂 Select Content Directory" --text="Select the directory containing your index.html and other files:" --width=300)
+    if [ -z "$content_dir" ]; then
+      show_error "No directory selected!"
+      exit 1
+    fi
+    cp -r "$content_dir"/* "$full_path"
+    ;;
+  "File")
+    content_file=$(zenity --file-selection --title="📄 Select a File" --text="Please select a file to use as index.html:" --width=300)
+    if [ -z "$content_file" ]; then
+      show_error "No file selected!"
+      exit 1
+    fi
+    cp "$content_file" "$full_path/index.html"
+    ;;
+  "URL")
+    redirect_url=$(zenity --entry --title="🌐 Enter URL" --text="Please enter a URL to redirect to:" --width=300)
+    if [ -z "$redirect_url" ]; then
+      show_error "No URL entered!"
+      exit 1
+    fi
+    echo "<!DOCTYPE html><html><head><meta http-equiv=\"refresh\" content=\"0;url=$redirect_url\"></head><body></body></html>" > "$full_path/index.html"
+    ;;
+  "Abort")
+    show_error "Operation aborted by the user."
     exit 1
-  fi
-  # Copy and rename the file to index.html in the project directory
-  cp "$content_file" "$full_path/index.html"
-else
-  # Copy the contents of the selected directory to the project directory
-  cp -r "$content_dir"/* "$full_path"
-fi
+    ;;
+  *)
+    show_error "Invalid option selected!"
+    exit 1
+    ;;
+esac
 
 # Install Electron
 install_electron
@@ -135,7 +158,7 @@ create_main_js
 # Update package.json to include main and start scripts
 update_package_json
 
-# create the run file (launcher)
+# Create the run file (launcher)
 create_run_file
 
 # Notify user of successful creation
